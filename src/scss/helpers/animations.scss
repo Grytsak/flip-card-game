@@ -1,0 +1,13 @@
+@import './variables.scss';
+
+@keyframes card-finish-bg {
+    to {
+        background-color: $main-black;
+    }
+}
+
+@keyframes card-finish-icon {
+    to {
+        color: $main-black;
+    }
+}

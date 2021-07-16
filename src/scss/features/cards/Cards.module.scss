@@ -1,0 +1,105 @@
+@import '../../helpers/variables.scss';
+@import '../../helpers/animations.scss';
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.card {
+    width: 25%;
+    height: 25%;
+    cursor: pointer;
+    opacity: 1;
+    perspective: 1000px;
+    transition: opacity 0.2s;
+}
+
+.card:hover {
+    opacity: 0.8;
+}
+
+.card__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.card.card___active .card__inner {
+    transform: rotateY(180deg);
+}
+
+.card__back, .card__front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    box-shadow: 0px 0px 0px 1px $main-black inset;
+}
+
+.card__back {
+    background-color: $main-green;
+    box-shadow: 0px 0px 0px 1px $main-black inset;
+}
+
+.card___found .card__back {
+    background-color: $main-black;
+    pointer-events: none;
+}
+
+.card__front {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: $main-red;
+    transform: rotateY(180deg);
+}
+
+.card___finished.card {
+    cursor: inherit;
+    pointer-events: none;
+}
+
+.card___finished .card__front {
+    animation-delay: 1s;
+    animation-name: card-finish-bg;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+}
+
+.card___finished .card__back {
+    // background-color: $main-black;
+}
+
+.card___finished .card__icon {
+    animation-delay: 1s;
+    animation-name: card-finish-icon;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+}
+
+.card___found .card__front {
+    background-color: $main-black;
+    pointer-events: none;
+}
+
+.card__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: $main-white;
+    font-size: 60px;
+    transform: translate(-50%, -50%);
+}
+
+.card__icon.active {
+    display: block;
+}
