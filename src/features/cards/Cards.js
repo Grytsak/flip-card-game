@@ -1,4 +1,4 @@
-import React from 'react'
+import  React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,7 +20,7 @@ export const Cards = () => {
         }
 
         dispatch(flipCardThunk(card));
-    }
+    };
 
     const renderCards = casual.map(card => {
         const cardClassNames = classNamesBind({

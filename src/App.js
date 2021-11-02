@@ -3,7 +3,16 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom'
+
+
 import { Cards } from './features/cards/Cards'
+import { Menu } from './features/menu/Menu'
 
 library.add(fab, far, fas);
 
@@ -11,10 +20,14 @@ library.add(fab, far, fas);
 
 function App() {
   return (
-    <div className="App">
-      {/* <h1>Flip - card memory game</h1> */}
-      <Cards />
-    </div>
+    <Router>
+      <Switch>
+        <div className="App">
+          <Route exact path="/" component={Menu}  />
+          <Route exact path="/cards/" component={Cards}  />
+        </div>
+      </Switch>
+    </Router>
   );
 }
 

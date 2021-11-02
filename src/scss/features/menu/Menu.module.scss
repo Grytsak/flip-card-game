@@ -1,0 +1,9 @@
+@import '../../helpers/variables.scss';
+
+.menu {
+    max-width: 500px;
+    background-color: $main-green;
+    margin: 50px auto;
+    padding: 20px 0;
+    text-align: center;
+}

@@ -69,18 +69,21 @@
 }
 
 .card___finished .card__front {
-    animation-delay: 1s;
+    animation-delay: 0.8s;
     animation-name: card-finish-bg;
     animation-duration: 0.2s;
     animation-fill-mode: forwards;
 }
 
 .card___finished .card__back {
-    // background-color: $main-black;
+    animation-delay: 0.8s;
+    animation-name: card-finish-bg;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
 }
 
 .card___finished .card__icon {
-    animation-delay: 1s;
+    animation-delay: 0.8s;
     animation-name: card-finish-icon;
     animation-duration: 0.2s;
     animation-fill-mode: forwards;
