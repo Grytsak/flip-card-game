@@ -6,9 +6,9 @@ import styles from '../../scss/features/menu/Menu.module.scss'
 export const Menu = () => {
     return(
         <div className={styles.menu}>
-            <Link to={'/cards/'}>
-                Cards
-            </Link>
+            <Link to={'/cards/casual'}>Casual</Link>
+            <Link to={'/cards/medium'}>Medium</Link>
+            <Link to={'/cards/hard'}>Hard</Link>
         </div>
     )
 }

@@ -4,15 +4,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames/bind'
 
-import { selectCasualCards, flipCardThunk } from './cardsSlice'
+import { checkDifficulty, selectCards, flipCardThunk } from './cardsSlice'
 
 import styles from '../../scss/features/cards/Cards.module.scss'
 
 let classNamesBind = classNames.bind(styles);
 
 export const Cards = () => {
-    const casual = useSelector(selectCasualCards);
     const dispatch = useDispatch();
+
+    const pathname = window.location.pathname;
+    const difficulty = pathname.substring(pathname.lastIndexOf('/') + 1);
+    dispatch(checkDifficulty(difficulty));
+
+
+    const cards = useSelector(selectCards);
+    
 
     const flipCard = card => {
         if(card.flip) {
@@ -22,9 +29,10 @@ export const Cards = () => {
         dispatch(flipCardThunk(card));
     };
 
-    const renderCards = casual.map(card => {
+    const renderCards = cards.map(card => {
         const cardClassNames = classNamesBind({
             card: true,
+            [difficulty]: true,
             card___active: card.flip,
             card___finished: card.finished
         })

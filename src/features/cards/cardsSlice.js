@@ -1,12 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { shuffledCasual } from './data';
+import {  shuffledCasual, shuffledMedium, shuffledHard } from './data';
+
 
 const initialState = {
+    cardItems: '',
     casual: shuffledCasual,
+    medium: shuffledMedium,
+    hard: shuffledHard,
+    difficulty: 'casual',
     cardFliped: false,
     cardFlipedType: '',
     cardFlipedId: ''
-};
+}
+
+const checkDifficultyArray = (state) => {
+    const pathname = window.location.pathname;
+    const difficulty = pathname.substring(pathname.lastIndexOf('/') + 1);
+
+    if (difficulty === "casual") {
+        return state.casual;
+    } else if (difficulty === "medium") {
+        return state.medium;
+    } else if (difficulty === "hard") {
+        return state.hard;
+    }
+}
 
 export const flipCardThunk = card => {
     return (dispatch, getState) => {
@@ -30,10 +48,12 @@ const cardsSlice = createSlice({
     name: 'cards',
     initialState,
     reducers: {
+        checkDifficulty: (state, action) => {
+            state.difficulty = action.payload;
+        },
         firstCardFlip: (state, action) => {
-            console.log('action.payload.id:', action.payload.id);
-            let card = state.casual.find(card => card.id === action.payload.id)
-            console.log('card 1:', card);
+            let card = checkDifficultyArray(state).find(card => card.id === action.payload.id)
+            console.log('card:', card);
             card.flip = true
             state.cardFliped = true
             state.cardFlipedType = card.type
@@ -41,7 +61,7 @@ const cardsSlice = createSlice({
             return
         },
         secondCardFlip: (state, action) => {  
-            let card = state.casual.find(card => card.id === action.payload.id)
+            let card = checkDifficultyArray(state).find(card => card.id === action.payload.id)
             card.flip = true
 
             if(card.type === state.cardFlipedType && card.id != state.cardFlipedId) {
@@ -50,7 +70,7 @@ const cardsSlice = createSlice({
                 state.cardFlipedType = ''
                 state.cardFlipedId = ''
 
-                state.casual.map(firstCard => {
+                checkDifficultyArray(state).map(firstCard => {
                     if(card.type === firstCard.type) {
                         firstCard.finished = true
                     }
@@ -58,11 +78,11 @@ const cardsSlice = createSlice({
             }
         },
         secondCardFlipCheck: (state, action) => {
-            let card = state.casual.find(card => card.id === action.payload.id)
+            let card = checkDifficultyArray(state).find(card => card.id === action.payload.id)
 
             if(card.type != state.cardFlipedType) {
-                state.casual.map(cardCasual => {
-                    cardCasual.flip = false
+                checkDifficultyArray(state).map(card => {
+                    card.flip = false
                 })
                 state.cardFliped = false
                 state.cardFlipedType = ''
@@ -72,8 +92,25 @@ const cardsSlice = createSlice({
     }
 })
 
-export const { shuffleCasual, firstCardFlip, secondCardFlip, secondCardFlipCheck } = cardsSlice.actions
+export const { 
+    shuffleCasual, 
+    firstCardFlip, 
+    secondCardFlip, 
+    secondCardFlipCheck,
+    checkDifficulty 
+} = cardsSlice.actions
 
-export default cardsSlice.reducer
+export default cardsSlice.reducer;
 
-export const selectCasualCards = (state) => state.cards.casual;
+export const selectCards = (state) => {
+    const pathname = window.location.pathname;
+    const difficulty = pathname.substring(pathname.lastIndexOf('/') + 1);
+
+    if (difficulty === "casual") {
+        return state.cards.casual;
+    } else if (difficulty === "medium") {
+        return state.cards.medium;
+    } else if (difficulty === "hard") {
+        return state.cards.hard;
+    }
+}

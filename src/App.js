@@ -24,7 +24,9 @@ function App() {
       <Switch>
         <div className="App">
           <Route exact path="/" component={Menu}  />
-          <Route exact path="/cards/" component={Cards}  />
+          <Route exact path="/cards/casual" component={Cards}  />
+          <Route exact path="/cards/medium" component={Cards}  />
+          <Route exact path="/cards/hard" component={Cards}  />
         </div>
       </Switch>
     </Router>
