@@ -4,7 +4,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Redirect,
